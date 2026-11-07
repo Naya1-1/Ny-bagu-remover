@@ -1,0 +1,396 @@
+<div class="inline-drawer" id="nybg_settings_root">
+    <div class="inline-drawer-toggle inline-drawer-header">
+        <b>Ny八股去除器</b>
+        <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+    </div>
+    <div class="inline-drawer-content">
+        <div class="nybg-settings-container">
+            <!-- 左侧竖排导航栏（4栏：基础设置 / 去味调优 / AI优化 / 效果统计） -->
+            <div class="nybg-sidebar">
+                <div class="nybg-tab-item active" data-tab="settings">基础设置</div>
+                <div class="nybg-tab-item" data-tab="rules">去味调优</div>
+                <div class="nybg-tab-item" data-tab="ai"><span class="nybg-tcy">AI</span>优化</div>
+                <div class="nybg-tab-item" data-tab="help">效果统计</div>
+            </div>
+
+            <!-- 右侧内容区 -->
+            <div class="nybg-content-area">
+
+                <!-- Tab 1: 基础设置 -->
+                <div id="nybg_tab_settings" class="nybg-tab-pane active">
+                    <!-- 流光动画总开关 -->
+                    <div class="flex-container alignItemsCenter nybg-row nybg-row--disclosure nybg-main-toggle nybg-importer-toggle is-open" id="nybg_enabled_row">
+                        <span class="nybg-border-anim top"></span>
+                        <span class="nybg-border-anim right"></span>
+                        <span class="nybg-border-anim bottom"></span>
+                        <span class="nybg-border-anim left"></span>
+
+                        <input type="checkbox" id="nybg_enabled" style="display: none;" checked />
+                        <label class="nybg-disclosure-label" id="nybg_enabled_label_container">
+                            <div class="nybg-icon-stack">
+                                <i class="fa-solid fa-chevron-right nybg-disclosure-icon nybg-static-icon" aria-hidden="true"></i>
+                                <div class="nybg-running-icon-wrapper">
+                                    <i class="fa-solid fa-check nybg-running-icon" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <span id="nybg_enabled_text">已开启自动去八股（点击可暂停）</span>
+                        </label>
+                    </div>
+
+                    <!-- 主设置折叠面板 -->
+                    <div id="nybg_main_settings_panel" class="nybg-collapsible is-open" aria-hidden="false">
+                        <!-- 1. 怎么帮您改？ -->
+                        <div class="nybg-group-card">
+                            <div class="nybg-group-title">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> AI 回复完之后怎么处理？
+                            </div>
+
+                            <div class="nybg-radio-grid">
+                                <label class="nybg-mode-option">
+                                    <input type="radio" name="nybg_work_mode" value="silent" checked />
+                                    <div class="nybg-mode-box">
+                                        <div class="nybg-mode-head">
+                                            <i class="fa-solid fa-bolt"></i> 自动帮我改好（推荐）
+                                        </div>
+                                        <div class="nybg-mode-desc">AI 一写完就自动去掉八股词和啰嗦句式，省心省力，还能防止 AI 在后面的对话里越学越油腻</div>
+                                    </div>
+                                </label>
+
+                                <label class="nybg-mode-option">
+                                    <input type="radio" name="nybg_work_mode" value="review" />
+                                    <div class="nybg-mode-box">
+                                        <div class="nybg-mode-head">
+                                            <i class="fa-solid fa-highlighter"></i> 只标出来，我自己点
+                                        </div>
+                                        <div class="nybg-mode-desc">不自动改字，只把疑似八股的地方用荧光笔标出来，您觉得哪句不好看，点一下那句才会替换</div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- 自动改好子选项：留底稿 vs 不留底稿 -->
+                            <div id="nybg_silent_subgroup" class="nybg-sub-options">
+                                <span class="nybg-sub-label">改完之后要留底稿吗？</span>
+                                <label class="nybg-inline-radio">
+                                    <input type="radio" name="nybg_keep_original" value="keep" checked />
+                                    <span><b>留一份底稿</b>（消息底下有个小按钮，随时能看改了哪、或者一键恢复原样）</span>
+                                </label>
+                                <label class="nybg-inline-radio">
+                                    <input type="radio" name="nybg_keep_original" value="discard" />
+                                    <span><b>直接改掉不留底稿</b>（消息底下不挂任何小按钮，界面最干净）</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 2. 哪些内容不要动？ -->
+                        <div class="nybg-group-card">
+                            <div class="nybg-group-title">
+                                <i class="fa-solid fa-shield-heart"></i> 哪些内容绝对不乱改？（防误伤保护）
+                            </div>
+
+                            <label class="nybg-check-row">
+                                <input type="checkbox" id="nybg_protect_dialogue" checked />
+                                <div class="nybg-check-text">
+                                    <b>不改角色开口说的话（强烈推荐开启）</b>
+                                    <span>双引号 <code>“...”</code> 和 <code>「...」</code> 里的角色台词保持原样，只改外面的动作和旁白描写，绝不破坏角色的说话语气</span>
+                                </div>
+                            </label>
+
+                            <label class="nybg-check-row">
+                                <input type="checkbox" id="nybg_protect_double_corner" checked />
+                                <div class="nybg-check-text">
+                                    <b>不改『 』包起来的内容</b>
+                                    <span>跳过 <code>『...』</code> 里面的内心独白、系统提示或特殊小剧场</span>
+                                </div>
+                            </label>
+
+                            <label class="nybg-check-row">
+                                <input type="checkbox" id="nybg_protect_details" checked />
+                                <div class="nybg-check-text">
+                                    <b>不改「尾部总结」与状态栏</b>
+                                    <span>自动保护结尾可点开的<b>尾部总结</b>（<code>&lt;details&gt;</code>）、状态面板、代码块和表格</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- 3. 清理以前的旧消息 -->
+                        <div class="nybg-group-card">
+                            <div class="nybg-group-title">
+                                <i class="fa-solid fa-broom"></i> 清理前面已经聊过的旧消息
+                            </div>
+                            <div class="nybg-toolbar-row">
+                                <div class="nybg-toolbar-left">
+                                    <label for="nybg_batch_count" class="nybg-nested-label">往前清理</label>
+                                    <input id="nybg_batch_count" type="number" min="1" max="100" value="10" class="text_pole nybg-input nybg-input--short" />
+                                    <span class="nybg-nested-label">条回复</span>
+                                </div>
+                                <button id="nybg_btn_batch_clean" type="button" class="menu_button">
+                                    <i class="fa-solid fa-sparkles"></i> 一键清理旧回复
+                                </button>
+                            </div>
+                            <div id="nybg_batch_status" class="nybg-status-hint">如果半路才开插件、前面的聊天已经有很多八股了，点一下就能把最近几条洗干净，防止 AI 接着照抄</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: 去味调优（100% 纯本地运行，无需任何 AI 配置） -->
+                <div id="nybg_tab_rules" class="nybg-tab-pane">
+                    <!-- 1. 自己随手加替换词 -->
+                    <div class="nybg-group-card">
+                        <div class="nybg-group-title">
+                            <i class="fa-solid fa-plus-circle"></i> 看到烦人的词？随手加一条替换
+                        </div>
+                        <div class="nybg-status-hint" style="margin-top: -4px;">直接打字即可。替换词可用 <code>/</code> 写多个备选词（如：<code>神色微怔 / 目光微动 / 怔了怔</code>），每次触发会自动洗牌随机抽取，避免单一替换词重复固化。</div>
+                        <div class="nybg-add-rule-bar">
+                            <input id="nybg_new_rule_pattern" type="text" class="text_pole nybg-input" placeholder="看到哪个烦人的词？（如：某种说不清的）" />
+                            <input id="nybg_new_rule_replace" type="text" class="text_pole nybg-input" placeholder="换成什么？（可用 / 写多个随机词，留空=删掉）" />
+                            <button id="nybg_btn_add_rule" type="button" class="menu_button">
+                                <i class="fa-solid fa-plus"></i> 添加进去
+                            </button>
+                        </div>
+                        <div id="nybg_custom_rules_box" class="nybg-rules-list" style="display: none;"></div>
+                    </div>
+
+                    <!-- 2. 高频词识别 -->
+                    <div class="nybg-group-card">
+                        <div class="nybg-toolbar-row">
+                            <div class="nybg-group-title" style="margin-bottom: 0;">
+                                <i class="fa-solid fa-satellite-dish"></i> 高频词识别
+                            </div>
+                            <div class="nybg-toolbar-right">
+                                <span class="nybg-nested-label">最近</span>
+                                <input id="nybg_radar_floors" type="number" min="3" max="30" value="8" class="text_pole nybg-input nybg-input--tiny" />
+                                <span class="nybg-nested-label">楼</span>
+                                <button id="nybg_btn_scan_radar" type="button" class="menu_button">
+                                    <i class="fa-solid fa-magnifying-glass"></i> 扫描
+                                </button>
+                            </div>
+                        </div>
+                        <div class="nybg-status-hint" style="margin-top: -2px;">统计最近几层回复中重复出现较多的词组。点 <b>+限流</b> 可加入下方水词限制名单，点 <b>+替换</b> 可填入上方替换框。</div>
+                        <div id="nybg_radar_results" class="nybg-radar-box">
+                            <span class="nybg-radar-empty">点击右上角「扫描」，查看最近几层高频重复的词汇~</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. 四大智能改句功能 -->
+                    <div class="nybg-group-card">
+                        <div class="nybg-group-title">
+                            <i class="fa-solid fa-feather-pointed"></i> 智能句式整理
+                        </div>
+
+                        <label class="nybg-check-row">
+                            <input type="checkbox" id="nybg_syn_neg_parallel" checked />
+                            <div class="nybg-check-text">
+                                <b>改掉「不是…而是…」与「不是…是…」绕弯句</b>
+                                <span>例：把“那不是愤怒，而是执念”或“这不是请求，是命令”直接裁掉前半句假否定，保留后半句真话“那是执念 / 这是命令”</span>
+                            </div>
+                        </label>
+
+                        <label class="nybg-check-row">
+                            <input type="checkbox" id="nybg_syn_telegraphic" checked />
+                            <div class="nybg-check-text">
+                                <b>合并一两个字一段的碎句子</b>
+                                <span>例：把连续单独成行的短旁白“七步。”换行“五步。”换行“三步。”自动连成“七步，五步，三步。”不再刷屏</span>
+                            </div>
+                        </label>
+                        <div class="nybg-row nybg-row--nested">
+                            <span class="nybg-nested-label">短旁白合并字数上限：</span>
+                            <input id="nybg_syn_tele_maxchars" type="number" min="4" max="20" value="8" class="text_pole nybg-input nybg-input--short" />
+                            <span class="nybg-nested-label">字以内</span>
+                        </div>
+
+                        <label class="nybg-check-row">
+                            <input type="checkbox" id="nybg_syn_density" checked />
+                            <div class="nybg-check-text">
+                                <b>少用「微微、缓缓」等水字数的词</b>
+                                <span>一条回复里允许偶尔用一两次，超出设定次数后自动删掉多余的重复修饰词</span>
+                            </div>
+                        </label>
+                        <div class="nybg-row nybg-row--nested nybg-row--stack">
+                            <div class="nybg-toolbar-left">
+                                <span class="nybg-nested-label">每条回复最多留：</span>
+                                <input id="nybg_syn_quota_max" type="number" min="1" max="10" value="2" class="text_pole nybg-input nybg-input--tiny" />
+                                <span class="nybg-nested-label">次</span>
+                            </div>
+                            <input id="nybg_syn_quota_words" type="text" class="text_pole nybg-input" style="width: 100%;" placeholder="要限制的词，用逗号隔开" />
+                        </div>
+
+                        <label class="nybg-check-row">
+                            <input type="checkbox" id="nybg_syn_echo_trim" checked />
+                            <div class="nybg-check-text">
+                                <b>删掉结尾老套升华与抛问题</b>
+                                <span>自动删掉回复最末尾常见的“夜还很长”、“一切才刚刚开始”、“决定权交到了你手里”等套话</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- 4. 内置去八股词包 -->
+                    <div class="nybg-group-card">
+                        <div class="nybg-toolbar-row">
+                            <div class="nybg-group-title" style="margin-bottom: 0;">
+                                <i class="fa-solid fa-box-open"></i> 内置去八股词包
+                            </div>
+                            <button id="nybg_btn_reset_rules" type="button" class="menu_button" title="把内置词包恢复到初始推荐状态">
+                                <i class="fa-solid fa-rotate-left"></i> 恢复默认
+                            </button>
+                        </div>
+                        <div class="nybg-status-hint">下面 5 个词包默认全开，已配好<b>洗牌随机词池</b>（用 <code>/</code> 分隔）。点「明细」可展开查看或自定义修改。</div>
+
+                        <div id="nybg_category_packs_container" class="nybg-packs-list"></div>
+                    </div>
+
+                    <!-- 5. 试试看效果（折叠测试框） -->
+                    <div class="nybg-core-help-wrapper">
+                        <div class="flex-container alignItemsCenter nybg-row nybg-row--disclosure nybg-help-toggle">
+                            <label class="nybg-disclosure-label">
+                                <i class="fa-solid fa-chevron-right nybg-disclosure-icon"></i>
+                                <span class="nybg-core-title"><i class="fa-solid fa-flask"></i> 想试试效果？点这里粘贴一段话看看变化</span>
+                            </label>
+                        </div>
+                        <div class="nybg-collapsible" aria-hidden="true">
+                            <div style="padding: 10px; display: flex; flex-direction: column; gap: 8px;">
+                                <textarea id="nybg_sandbox_input" class="text_pole nybg-textarea" rows="4" placeholder="粘贴一段话进来试试看...">那不是普通的愤怒，而是深藏心底的执念。
+他微微低头，微微叹气，微微蹙眉，缓缓伸出手。
+七步。
+五步。
+三步。
+“这不是你的错，别自责。”她说道。
+『系统提示：不是故障，而是正常现象』
+<details><summary>尾部总结</summary>不是意外，而是早有预谋。</details>
+毕竟，夜还很长，一切才刚刚开始。</textarea>
+                                <div class="nybg-toolbar-row">
+                                    <button id="nybg_btn_run_sandbox" type="button" class="menu_button">
+                                        <i class="fa-solid fa-play"></i> 点我看看改完长啥样
+                                    </button>
+                                    <div id="nybg_sandbox_hits" class="nybg-sandbox-hits"></div>
+                                </div>
+                                <textarea id="nybg_sandbox_output" class="text_pole nybg-textarea" rows="4" readonly placeholder="改完后的干净文字会显示在这里..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: AI优化（独立小模型自动化模块，不配置也完全不影响插件其余功能使用！） -->
+                <div id="nybg_tab_ai" class="nybg-tab-pane">
+                    <!-- 1. 说明与独立开关卡片 -->
+                    <div class="nybg-group-card">
+                        <div class="nybg-group-title">
+                            <i class="fa-solid fa-robot"></i> 高频词自动生成替换词组（可选进阶功能）
+                        </div>
+                        <div class="nybg-status-hint" style="margin-top: -2px;">
+                            <b>温馨提示：不配置此页面也完全不影响插件正常使用！</b><br />
+                            为了不浪费您平时聊天用的昂贵主模型额度，此模块仅在您填写了便宜/免费小模型 API（如 DeepSeek、Flash 小模型等）并开启开关后运行。当检测到近期高频复读词累计达标时，会自动请求小模型生成 5~6 个近义替换词并排除正常剧情名词。
+                        </div>
+
+                        <label class="nybg-check-row">
+                            <input type="checkbox" id="nybg_ai_enabled" />
+                            <div class="nybg-check-text">
+                                <b>开启高频词累计达标后自动请求 AI 生成替换词池</b>
+                                <span>开启后，每当最近几楼出现新的高频复读词达到设定次数，自动在后台调用下方小模型生成同义替换词池</span>
+                            </div>
+                        </label>
+
+                        <label class="nybg-check-row">
+                            <input type="checkbox" id="nybg_ai_keep_first" checked />
+                            <div class="nybg-check-text">
+                                <b>留一换多模式（推荐开启）</b>
+                                <span>对于 AI 生成的高频词规则，每条回复里第 1 次出现时保留原词不动，从第 2 次起用洗牌随机词池替换，过渡更自然</span>
+                            </div>
+                        </label>
+
+                        <div class="nybg-row nybg-row--nested">
+                            <span class="nybg-nested-label">扫描最近</span>
+                            <input id="nybg_ai_scan_floors" type="number" min="3" max="30" value="6" class="text_pole nybg-input nybg-input--tiny" />
+                            <span class="nybg-nested-label">楼，同个词累计满</span>
+                            <input id="nybg_ai_min_count" type="number" min="2" max="20" value="5" class="text_pole nybg-input nybg-input--tiny" />
+                            <span class="nybg-nested-label">次时触发</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. 独立小模型 API 配置卡片 -->
+                    <div class="nybg-group-card">
+                        <div class="nybg-group-title">
+                            <i class="fa-solid fa-key"></i> 独立小模型 API 配置（OpenAI 兼容格式）
+                        </div>
+                        <div class="nybg-add-rule-bar">
+                            <span class="nybg-nested-label">API 接口地址：</span>
+                            <input id="nybg_ai_api_url" type="text" class="text_pole nybg-input" placeholder="https://api.deepseek.com/v1" />
+
+                            <span class="nybg-nested-label">API 密钥：</span>
+                            <input id="nybg_ai_api_key" type="password" class="text_pole nybg-input" placeholder="sk-..." />
+
+                            <span class="nybg-nested-label">模型名称：</span>
+                            <div class="nybg-toolbar-row" style="width: 100%;">
+                                <input id="nybg_ai_model" type="text" class="text_pole nybg-input" placeholder="deepseek-chat" style="flex: 1;" />
+                                <button id="nybg_btn_fetch_models" type="button" class="menu_button">
+                                    <i class="fa-solid fa-cloud-arrow-down"></i> 拉取模型
+                                </button>
+                            </div>
+                            <select id="nybg_ai_model_select" class="text_pole nybg-select" style="display: none; width: 100%;"></select>
+                        </div>
+
+                        <div class="nybg-toolbar-row" style="margin-top: 4px;">
+                            <button id="nybg_btn_run_ai_now" type="button" class="menu_button">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> 立即扫描当前聊天并生成替换词组
+                            </button>
+                        </div>
+                        <div id="nybg_ai_status_hint" class="nybg-status-hint">填好小模型 API 后，可随时点上方按钮立即测试生成效果~</div>
+                    </div>
+
+                    <!-- 3. AI 已生成的替换词池与白名单管理 -->
+                    <div class="nybg-group-card">
+                        <div class="nybg-toolbar-row">
+                            <div class="nybg-group-title" style="margin-bottom: 0;">
+                                <i class="fa-solid fa-brain"></i> AI 已生成的替换词组
+                            </div>
+                            <button id="nybg_btn_clear_ai_rules" type="button" class="menu_button" title="清空所有由 AI 自动生成的规则與白名单">
+                                <i class="fa-solid fa-trash-can"></i> 清空记录
+                            </button>
+                        </div>
+                        <div id="nybg_ai_learned_list" class="nybg-rules-list"></div>
+                        <div id="nybg_ai_whitelist_box" class="nybg-status-hint"></div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: 效果统计与说明 -->
+                <div id="nybg_tab_help" class="nybg-tab-pane">
+                    <!-- 拦截统计看板 -->
+                    <div class="nybg-stats-grid">
+                        <div class="nybg-stat-box">
+                            <div class="nybg-stat-num" id="nybg_stat_messages">0</div>
+                            <div class="nybg-stat-label">已净化的回复</div>
+                        </div>
+                        <div class="nybg-stat-box">
+                            <div class="nybg-stat-num" id="nybg_stat_hits">0</div>
+                            <div class="nybg-stat-label">累计干掉八股</div>
+                        </div>
+                        <div class="nybg-stat-box">
+                            <div class="nybg-stat-num" id="nybg_stat_syntax">0</div>
+                            <div class="nybg-stat-label">改掉啰嗦句式</div>
+                        </div>
+                        <div class="nybg-stat-box">
+                            <div class="nybg-stat-num" id="nybg_stat_regex">0</div>
+                            <div class="nybg-stat-label">替换老套词汇</div>
+                        </div>
+                    </div>
+
+                    <div class="nybg-core-help-wrapper">
+                        <div class="flex-container alignItemsCenter nybg-row nybg-row--disclosure nybg-help-toggle is-open">
+                            <label class="nybg-disclosure-label">
+                                <i class="fa-solid fa-chevron-right nybg-disclosure-icon"></i>
+                                <span class="nybg-core-title"><i class="fa-solid fa-heart"></i> 三句话看完怎么用（零门槛说明）</span>
+                            </label>
+                        </div>
+                        <div class="nybg-collapsible is-open" aria-hidden="false">
+                            <div class="nybg-help--core">
+                                <p>1. <strong>不配 AI 也能直接玩</strong>：所有常用的去八股规则都已经帮您默认配好（自带洗牌随机词池，防止替换词再次固化成新八股），打开总开关就能直接去聊天，无需配置任何 API。</p>
+                                <p>2. <strong>不怕改坏重要内容</strong>：角色在引号里说的话、<code>『...』</code> 里的内容、还有结尾的<strong>尾部总结</strong>（<code>&lt;details&gt;</code>），插件都会乖乖绕开不去乱动。</p>
+                                <p>3. <strong>随时能后悔还原</strong>：默认开启了<strong>留一份底稿</strong>，每条改过的消息底下都有个小按钮，点一下就能看改了哪几个词，不喜欢随时点<strong>恢复原样</strong>。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
