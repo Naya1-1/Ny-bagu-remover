@@ -46,7 +46,7 @@
 # 📥 安装方法
 1.打开 SillyTavern 的 Extensions (扩展) 选项卡。
 2.点击 安装扩展 Install Extension。
-3.粘贴本仓库地址：
+3.粘贴本仓库地址：https://github.com/Naya1-1/Ny-bagu-remover.git
 4.点击安装
 当前版本：v1.0.0
 
