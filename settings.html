@@ -107,9 +107,21 @@
                                 <input type="checkbox" id="nybg_protect_details" checked />
                                 <div class="nybg-check-text">
                                     <b>不改「尾部总结」与状态栏</b>
-                                    <span>自动保护结尾可点开的<b>尾部总结</b>（<code>&lt;details&gt;</code>）、状态面板、代码块和表格</span>
+                                    <span>自动保护结尾可点开的<b>尾部总结</b>（<code>&lt;details&gt;</code>）、状态面板、代码块和 Markdown/HTML 表格</span>
                                 </div>
                             </label>
+
+                            <label class="nybg-check-row">
+                                <input type="checkbox" id="nybg_protect_xml" checked />
+                                <div class="nybg-check-text">
+                                    <b>不改自定义 XML 标签里的内容（XML 保护）</b>
+                                    <span>整块跳过指定 XML 标签包裹的内容（如思考块、状态栏等），支持自由添加标签名</span>
+                                </div>
+                            </label>
+                            <div id="nybg_protect_xml_subgroup" class="nybg-row nybg-row--nested nybg-row--stack">
+                                <span class="nybg-nested-label">受保护的 XML 标签名（多个用逗号或空格隔开，直接填 <code>status</code> 或 <code>&lt;status&gt;</code> 均可）：</span>
+                                <input id="nybg_custom_xml_tags" type="text" class="text_pole nybg-input" style="width: 100%;" placeholder="例如：thinking, think, status, summary" />
+                            </div>
                         </div>
 
                         <!-- 3. 清理以前的旧消息 -->
@@ -256,6 +268,7 @@
 “这不是你的错，别自责。”她说道。
 『系统提示：不是故障，而是正常现象』
 <details><summary>尾部总结</summary>不是意外，而是早有预谋。</details>
+<status>体力：80 | --- | 思维链：那不是错觉，而是直觉</status>
 毕竟，夜还很长，一切才刚刚开始。</textarea>
                                 <div class="nybg-toolbar-row">
                                     <button id="nybg_btn_run_sandbox" type="button" class="menu_button">
@@ -383,7 +396,7 @@
                         <div class="nybg-collapsible is-open" aria-hidden="false">
                             <div class="nybg-help--core">
                                 <p>1. <strong>不配 AI 也能直接玩</strong>：所有常用的去八股规则都已经帮您默认配好（自带洗牌随机词池，防止替换词再次固化成新八股），打开总开关就能直接去聊天，无需配置任何 API。</p>
-                                <p>2. <strong>不怕改坏重要内容</strong>：角色在引号里说的话、<code>『...』</code> 里的内容、还有结尾的<strong>尾部总结</strong>（<code>&lt;details&gt;</code>），插件都会乖乖绕开不去乱动。</p>
+                                <p>2. <strong>不怕改坏重要内容</strong>：角色在引号里说的话、<code>『...』</code> 里的内容、Markdown 表格、自定义 XML 标签块，还有结尾的<strong>尾部总结</strong>（<code>&lt;details&gt;</code>），插件都会乖乖绕开不去乱动。</p>
                                 <p>3. <strong>随时能后悔还原</strong>：默认开启了<strong>留一份底稿</strong>，每条改过的消息底下都有个小按钮，点一下就能看改了哪几个词，不喜欢随时点<strong>恢复原样</strong>。</p>
                             </div>
                         </div>
