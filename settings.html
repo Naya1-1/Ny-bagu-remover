@@ -340,7 +340,7 @@
                             </div>
                             <select id="nybg_ai_model_select" class="text_pole nybg-select" style="display: none; width: 100%;"></select>
 
-                            <span class="nybg-nested-label">生成 Token 上限（max_tokens）：</span>
+                            <label class="nybg-nested-label" for="nybg_ai_max_tokens">生成 Token 上限（max_tokens）：</label>
                             <input id="nybg_ai_max_tokens" type="number" min="64" max="32000" step="1" value="2000" class="text_pole nybg-input nybg-input--short" title="小模型单次生成回复的最大 Token 数，默认 2000。推理模型会先消耗思考 Token，若提示「HTTP 200 但模型未返回正文」请调大此项或更换非推理小模型。" />
                         </div>
 
