@@ -339,6 +339,9 @@
                                 </button>
                             </div>
                             <select id="nybg_ai_model_select" class="text_pole nybg-select" style="display: none; width: 100%;"></select>
+
+                            <label class="nybg-nested-label" for="nybg_ai_max_tokens">生成 Token 上限（max_tokens）：</label>
+                            <input id="nybg_ai_max_tokens" type="number" min="64" max="32000" step="1" value="2000" class="text_pole nybg-input nybg-input--short" title="小模型单次生成回复的最大 Token 数，默认 2000。推理模型会先消耗思考 Token，若提示「HTTP 200 但模型未返回正文」请调大此项或更换非推理小模型。" />
                         </div>
 
                         <div class="nybg-toolbar-row" style="margin-top: 4px;">
@@ -347,6 +350,7 @@
                             </button>
                         </div>
                         <div id="nybg_ai_status_hint" class="nybg-status-hint">填好小模型 API 后，可随时点上方按钮立即测试生成效果~</div>
+                        <div class="nybg-status-hint">说明：「生成 Token 上限」默认 2000，普通小模型足够一次生成 16 组替换词；若您使用的是推理模型（会先输出思考过程），生成时提示「正文为空 / finish_reason=length」请调大此上限（推荐 3000 以上）或换用非推理小模型。</div>
                     </div>
 
                     <!-- 3. AI 已生成的替换词池与白名单管理 -->
